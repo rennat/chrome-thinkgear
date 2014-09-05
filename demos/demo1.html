@@ -1,0 +1,60 @@
+<!doctype html>
+<html data-thinkgear>
+<head>
+	<script>
+		console.debug('page starting');
+		
+		function receiveMessage(event) {
+			if (event.data.type == 'thinkgear') {
+				handleEvent(event.data.data);
+			}
+		}
+		
+		function handleEvent(event) {
+			var data = event.data ? JSON.parse(event.data) : {};
+			testAndSetOutput(data, 'attention');
+			testAndSetOutput(data, 'meditation');
+			
+			testAndSetOutput(data, 'high-alpha');
+			testAndSetOutput(data, 'low-alpha');
+			testAndSetOutput(data, 'high-beta');
+			testAndSetOutput(data, 'low-beta');
+			testAndSetOutput(data, 'high-gamma');
+			testAndSetOutput(data, 'low-gamma');
+		}
+		
+		function testAndSetOutput(data, name) {
+			if (typeof(data[name]) !== 'undefined') {
+				console.log('found');
+				document.getElementById('out-'+name).innerText = data[name];
+			}
+		}
+		
+		window.addEventListener("message", receiveMessage, false);
+	</script>
+</head>
+<body>
+	<ul>
+		<li>Attention <span id="out-attention"></span></li>
+		<li>Meditation <span id="out-meditation"></span></li>
+		<li>Alpha
+			<ul>
+				<li id="out-high-alpha"></li>
+				<li id="out-low-alpha"></li>
+			</ul>
+		</li>
+		<li>Beta
+			<ul>
+				<li id="out-high-beta"></li>
+				<li id="out-low-beta"></li>
+			</ul>
+		</li>
+		<li>Gamma
+			<ul>
+				<li id="out-high-gamma"></li>
+				<li id="out-low-gamma"></li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>

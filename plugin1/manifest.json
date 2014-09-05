@@ -1,0 +1,18 @@
+{
+	"manifest_version": 2,
+	"name": "NeuroSky MindWave EEG Events",
+	"version": "0.0.0",
+	"description": "Connects to a specified NeuroSky MindWave EEG Socket and fires DOM events from the data.",
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"content_scripts": [
+		{
+			"matches": ["*://*/*"],
+			"js": ["content.js"]
+		}
+	],
+	"permissions": [
+		"activeTab"
+	]
+}
